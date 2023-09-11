@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,10 +54,6 @@ namespace sudokuCLI
         static void Main(string[] args)
         {
             beolvasas();
-            foreach (var adat in adatok)
-            {
-                Console.WriteLine(adat.Kezdo);
-            }
             Console.WriteLine($"Összesen: {adatok.Count} adat található.");
             int joszam = 0;
             do
@@ -65,16 +62,34 @@ namespace sudokuCLI
                 joszam = int.Parse(Console.ReadLine());
             } while (joszam < 4 || joszam > 9);
 
+            List<Feladvany> bekertfeladvany = new List<Feladvany>();
             int bekertdarab = 0;
             foreach (var adat in adatok)
             {
                 if (joszam == adat.Meret)
                 {
+                    Feladvany newFeladvany = new Feladvany(adat.Kezdo);
+                    bekertfeladvany.Add(newFeladvany);
                     bekertdarab++;
                 }
             }
             Console.WriteLine($"{joszam}X{joszam} nagyságú feladványból {bekertdarab} van.");
-
+            
+            Random random = new Random();
+            int randombekert = random.Next(bekertdarab);
+            Feladvany randomFeladvany = bekertfeladvany[randombekert];
+            Console.WriteLine(randomFeladvany.Kezdo);
+            randomFeladvany.Kirajzol();
+            double kitoltottdb = 0;
+            for (int i = 0; i < randomFeladvany.Meret * randomFeladvany.Meret; i++)
+            {
+                if (randomFeladvany.Kezdo[i] != 0)
+                {
+                    kitoltottdb += 1;
+                }
+            }
+            double arany = randomFeladvany.Meret / kitoltottdb;
+            Console.WriteLine($"{arany * 100}% van kitöltve");
             Console.ReadKey();
         }
     }
