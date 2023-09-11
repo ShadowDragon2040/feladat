@@ -90,6 +90,12 @@ namespace sudokuCLI
             }
             double arany = randomFeladvany.Meret / kitoltottdb;
             Console.WriteLine($"{arany * 100}% van kitöltve");
+            StreamWriter writer = new StreamWriter($"soduku{joszam}.txt");
+            foreach (var adat in bekertfeladvany)
+            {
+                writer.WriteLine(adat.Kezdo);
+            }
+            writer.Close();
             Console.ReadKey();
         }
     }
