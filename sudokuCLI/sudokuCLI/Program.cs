@@ -64,7 +64,17 @@ namespace sudokuCLI
                 Console.WriteLine("Adjon meg egy 3 és 10 közé eső számot!");
                 joszam = int.Parse(Console.ReadLine());
             } while (joszam < 4 || joszam > 9);
-            Console.WriteLine("Jó számot adott meg");
+
+            int bekertdarab = 0;
+            foreach (var adat in adatok)
+            {
+                if (joszam == adat.Meret)
+                {
+                    bekertdarab++;
+                }
+            }
+            Console.WriteLine($"{joszam}X{joszam} nagyságú feladványból {bekertdarab} van.");
+
             Console.ReadKey();
         }
     }
