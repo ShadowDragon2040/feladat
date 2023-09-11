@@ -58,6 +58,13 @@ namespace sudokuCLI
                 Console.WriteLine(adat.Kezdo);
             }
             Console.WriteLine($"Összesen: {adatok.Count} adat található.");
+            int joszam = 0;
+            do
+            {
+                Console.WriteLine("Adjon meg egy 3 és 10 közé eső számot!");
+                joszam = int.Parse(Console.ReadLine());
+            } while (joszam < 4 || joszam > 9);
+            Console.WriteLine("Jó számot adott meg");
             Console.ReadKey();
         }
     }
